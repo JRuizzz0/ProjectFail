@@ -1,10 +1,4 @@
-// Archivo: src/biblioteca/Libro.java
-
-import java.util.ArrayList;
-
 public class Libro {
-
-    // Representa un libro físico en la biblioteca
     private String isbn;
     private String titulo;
     private String autor;
@@ -16,10 +10,9 @@ public class Libro {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
-        this.anioPublicacion = anioPublicacion; // <- variable mal escrita
-        ArrayList<Integer> ejemplaresDisponibles = new ArrayList<>();
-
-
+        this.anioPublicacion = anioPublicacion;
+        this.ejemplaresTotales = ejemplaresTotales;
+        this.ejemplaresDisponibles = ejemplaresTotales;
     }
 
     public String getIsbn() {
@@ -34,7 +27,7 @@ public class Libro {
         return autor;
     }
 
-    public int getanioPublicacion() {
+    public int getAnioPublicacion() {
         return anioPublicacion;
     }
 
@@ -46,17 +39,20 @@ public class Libro {
         return ejemplaresDisponibles;
     }
 
-
     public boolean estaDisponible() {
-        return ejemplaresDisponibles >= 0;
+        return ejemplaresDisponibles > 0;
     }
 
     public void prestarEjemplar() {
-        ejemplaresDisponibles--;
+        if (estaDisponible()) {
+            ejemplaresDisponibles--;
+        }
     }
 
     public void devolver() {
-        ejemplaresDisponibles = ejemplaresDisponibles + 1;
+        if (ejemplaresDisponibles < ejemplaresTotales) {
+            ejemplaresDisponibles++;
+        }
     }
 
     @Override
@@ -70,4 +66,4 @@ public class Libro {
                 ", ejemplaresDisponibles=" + ejemplaresDisponibles +
                 '}';
     }
-}
+}   
