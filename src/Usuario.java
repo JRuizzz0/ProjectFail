@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
@@ -6,13 +7,13 @@ public class Usuario {
     private String id;
     private String nombre;
     private int maximoPrestamosSimultaneos;
-    private List<Prestamo> prestamosActivos;
+    private ArrayList<Prestamo> prestamosActivos;
 
     public Usuario(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         this.maximoPrestamosSimultaneos = 3;
-        prestamosActivos = null;
+        this.prestamosActivos = null;
     }
 
     public String getId() {

@@ -11,9 +11,6 @@ public class BibliotecaService {
     public void registrarLibro(Libro libro) {
         if (libro == null) return;
         librosPorIsbn.put(libro.getIsbn(), libro);
-        if (librosPorIsbn.containsKey(libro.getIsbn())) {
-            librosPorIsbn.put(libro.getIsbn(), libro);
-        }
     }
 
     public void registrarUsuario(Usuario usuario) {
@@ -42,7 +39,7 @@ public class BibliotecaService {
     public void devolverLibro(String idUsuario, String isbn) {
         for (Prestamo p : prestamos) {
             if (p.getUsuario().getId().equals(idUsuario)) {
-                if (p.getLibro().getIsbn() == isbn) { // comparación de String con ==
+                if (p.getLibro().getIsbn() == isbn) {
                     p.marcarDevuelto();
                     break;
                 }
@@ -67,7 +64,7 @@ public class BibliotecaService {
             int contadorPrestamos = 0;
             for (Prestamo p : prestamos) {
                 if (p.getUsuario().getId() == idUsuario) {
-                    if (!p.isDevuelto()) {
+                    if (!p.getDevuelto()) {
                         contadorPrestamos = contadorPrestamos + 2;
                     }
                 }

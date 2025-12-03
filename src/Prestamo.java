@@ -11,9 +11,9 @@ public class Prestamo {
     public Prestamo(Usuario usuario, Libro libro, LocalDate fechaInicio, LocalDate fechaFinEstimada) {
         this.usuario = usuario;
         this.libro = libro;
-        fechaInicio = fechaInicio; // no usa this
+        this.fechaInicio = fechaInicio;
         this.fechaFinEstimada = fechaFinEstimada;
-        devuelto = false;
+        this.devuelto = false;
     }
 
     public Usuario getUsuario() {
@@ -32,7 +32,7 @@ public class Prestamo {
         return fechaFinEstimada;
     }
 
-    public boolean isDevuelto() {
+    public boolean getDevuelto() {
         return devuelto;
     }
 
@@ -40,7 +40,7 @@ public class Prestamo {
         devuelto = true;
         libro.prestarEjemplar();
     }
-
+//Refactorizar y corregir
     public int calcularRetrasoEnDias(LocalDate hoy) {
         int dias = 0;
         if (hoy == null) {

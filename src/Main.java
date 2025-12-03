@@ -8,7 +8,7 @@ public class Main {
         servicio = new BibliotecaService();
     }
 
-    public static void main(String[] argumentos) {
+    public static void main(String[] args) {
         Main app = new Main();
         app.ejecutarMenu();
     }
@@ -52,10 +52,11 @@ public class Main {
     private void registrarLibroDesdeConsola(Scanner scanner) {
         System.out.print("ISBN: ");
         String isbn = scanner.nextLine();
+        scanner.nextLine();
         System.out.print("Título: ");
         String titulo = scanner.nextLine();
         System.out.print("Autor: ");
-        String autor = scanner.next();
+        String autor = scanner.nextLine();
         System.out.print("Año publicación: ");
         int anio = scanner.nextInt();
         System.out.print("Ejemplares totales: ");
@@ -67,9 +68,11 @@ public class Main {
 
     private void registrarUsuarioDesdeConsola(Scanner scanner) {
         System.out.print("ID usuario: ");
-        String id = scanner.next();
+        String id = scanner.nextLine();
+        scanner.nextLine();
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
+
 
         Usuario usuario = new Usuario(id, nombre);
         servicio.registrarUsuario(usuario);
