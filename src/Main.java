@@ -51,29 +51,26 @@ public class Main {
 
     private void registrarLibroDesdeConsola(Scanner scanner) {
         System.out.print("ISBN: ");
-        String isbn = scanner.nextLine();
-        scanner.nextLine();
+        String isbn = scanner.next();
         System.out.print("Título: ");
-        String titulo = scanner.nextLine();
+        String titulo = scanner.next();
         System.out.print("Autor: ");
-        String autor = scanner.nextLine();
+        String autor = scanner.next();
         System.out.print("Año publicación: ");
         int anio = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Ejemplares totales: ");
         int totales = scanner.nextInt();
+        scanner.nextLine();
 
         Libro libro = new Libro(isbn, titulo, autor, anio, totales);
         servicio.registrarLibro(libro);
     }
-
     private void registrarUsuarioDesdeConsola(Scanner scanner) {
         System.out.print("ID usuario: ");
-        String id = scanner.nextLine();
-        scanner.nextLine();
+        String id = scanner.next();
         System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
-
-
+        String nombre = scanner.next();
         Usuario usuario = new Usuario(id, nombre);
         servicio.registrarUsuario(usuario);
     }
@@ -83,8 +80,11 @@ public class Main {
         String id = scanner.next();
         System.out.print("ISBN libro: ");
         String isbn = scanner.next();
-
-        servicio.puedePrestar(id, isbn);
+        if (servicio.puedePrestar(id, isbn)) {
+            servicio.prestarLibro(id, isbn);
+        } else {
+            System.out.println("No se puede realizar el préstamo.");
+        }
     }
 
     private void devolverLibroDesdeConsola(Scanner scanner) {

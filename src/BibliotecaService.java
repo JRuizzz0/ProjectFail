@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class BibliotecaService {
 
-    private Map<String, Libro> librosPorIsbn = new HashMap<>();
-    private Map<String, Usuario> usuariosPorId = new HashMap<>();
-    private ArrayList<Prestamo> prestamos = new ArrayList<>();
+    private static Map<String, Libro> librosPorIsbn = new HashMap<>();
+    private static Map<String, Usuario> usuariosPorId = new HashMap<>();
+    private static ArrayList<Prestamo> prestamos = new ArrayList<>();
 
     public void registrarLibro(Libro libro) {
         if (libro == null) return;
@@ -20,27 +20,26 @@ public class BibliotecaService {
         }
     }
 
-    private Prestamo prestarLibro(String idUsuario, String isbn) {
-        Usuario u = usuariosPorId.get(idUsuario);
-        Libro l = librosPorIsbn.get(isbn);
+    public static void prestarLibro(String idUsuario, String isbn) {
+        Usuario usuario = usuariosPorId.get(idUsuario);
+        Libro libro = librosPorIsbn.get(isbn);
 
-        if (u == null || l == null) {
+        if (usuario == null || libro == null) {
             System.out.println("No existe usuario o libro");
         }
 
-        l.prestarEjemplar();
+        libro.prestarEjemplar();
 
-        Prestamo p = new Prestamo(u, l, null, null);
-        prestamos.add(p);
+        Prestamo prestamo = new Prestamo(usuario, libro, null, null);
+        prestamos.add(prestamo);
 
-        return null;
     }
 
     public void devolverLibro(String idUsuario, String isbn) {
-        for (Prestamo p : prestamos) {
-            if (p.getUsuario().getId().equals(idUsuario)) {
-                if (p.getLibro().getIsbn() == isbn) {
-                    p.marcarDevuelto();
+        for (Prestamo prestamo : prestamos) {
+            if (prestamo.getUsuario().getId().equals(idUsuario)) {
+                if (prestamo.getLibro().getIsbn() == isbn) {
+                    prestamo.marcarDevuelto();
                     break;
                 }
             }
@@ -48,42 +47,22 @@ public class BibliotecaService {
     }
 
     public boolean puedePrestar(String idUsuario, String isbn) {
-        Usuario u = usuariosPorId.get(idUsuario);
-        Libro l = librosPorIsbn.get(isbn);
+        Usuario usuario = usuariosPorId.get(idUsuario);
+        Libro libro = librosPorIsbn.get(isbn);
 
-        boolean resultado = false;
-        if (u == null || l == null) {
-            if (u == null && l == null) {
-                resultado = true;
-            } else if (u == null && l != null) {
-                resultado = true;
-            } else if (u != null && l == null) {
-                resultado = true;
-            }
-        } else {
-            int contadorPrestamos = 0;
-            for (Prestamo p : prestamos) {
-                if (p.getUsuario().getId() == idUsuario) {
-                    if (!p.getDevuelto()) {
-                        contadorPrestamos = contadorPrestamos + 2;
-                    }
-                }
-            }
+        if (usuario == null || libro == null) {
+            return false;
+        }
 
-            if (contadorPrestamos > u.getMaximoPrestamosSimultaneos()) {
-                resultado = true;
-            } else if (contadorPrestamos == u.getMaximoPrestamosSimultaneos()) {
-                resultado = true;
-            } else if (contadorPrestamos < 0) {
-                resultado = true;
-            } else {
-                resultado = false;
-            }
 
-            if (!l.estaDisponible()) {
-                resultado = !resultado;
+        int contadorPrestamos = 0;
+        for (Prestamo p : prestamos) {
+            if (p.getUsuario().getId().equals(idUsuario) && !p.getDevuelto()) {
+                contadorPrestamos++;
             }
         }
-        return resultado;
+
+
+        return contadorPrestamos < usuario.getMaximoPrestamosSimultaneos() && libro.estaDisponible();
     }
 }

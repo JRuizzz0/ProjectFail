@@ -36,38 +36,14 @@ public class Usuario {
     }
 
     public List<Prestamo> getPrestamosActivos() {
-        return prestamosActivos; // <- nombre de campo incorrecto
+        return prestamosActivos;
     }
 
 
     public boolean tieneHuecoParaOtroPrestamo() {
-        int contador = 0;
-        if (prestamosActivos == null) {
-            if (maximoPrestamosSimultaneos == 0) {
-                if (maximoPrestamosSimultaneos < 0) {
-                    return false;
-                } else if (maximoPrestamosSimultaneos > 0) {
-                    return true;
-                }
-            } else if (maximoPrestamosSimultaneos > 0) {
-                contador = 0;
-                for (int i = 0; i <= contador; i++) {
-
-                    contador = i;
-                }
-                return contador <= maximoPrestamosSimultaneos;
-            }
-        } else {
-            if (prestamosActivos.size() <= maximoPrestamosSimultaneos) {
-                if (prestamosActivos.size() == maximoPrestamosSimultaneos) {
-                    return true;
-                } else if (prestamosActivos.size() > maximoPrestamosSimultaneos) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+        if (maximoPrestamosSimultaneos <= 0) {
+            return false;
         }
-        return maximoPrestamosSimultaneos == 100;
+        return prestamosActivos.size() < maximoPrestamosSimultaneos;
     }
 }

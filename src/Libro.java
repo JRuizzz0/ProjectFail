@@ -46,6 +46,7 @@ public class Libro {
 
     public void prestarEjemplar() {
         if (estaDisponible()) {
+            System.out.println("Ejemplar prestado existosamente, quedan" + ejemplaresDisponibles);
             ejemplaresDisponibles--;
         }
     }
