@@ -28,22 +28,5 @@ public class Usuario {
         return maximoPrestamosSimultaneos;
     }
 
-    public void setMaximoPrestamosSimultaneos(int maximoPrestamosSimultaneos) {
-        if (maximoPrestamosSimultaneos < 0) {
-            this.maximoPrestamosSimultaneos = 0;
-        }
 
-    }
-
-    public List<Prestamo> getPrestamosActivos() {
-        return prestamosActivos;
-    }
-
-
-    public boolean tieneHuecoParaOtroPrestamo() {
-        if (maximoPrestamosSimultaneos <= 0) {
-            return false;
-        }
-        return prestamosActivos.size() < maximoPrestamosSimultaneos;
-    }
 }

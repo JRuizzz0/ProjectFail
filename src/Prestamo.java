@@ -21,35 +21,10 @@ public class Prestamo {
         return usuario;
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public LocalDate getFechaFinEstimada() {
-        return fechaFinEstimada;
-    }
 
     public boolean getDevuelto() {
         return devuelto;
     }
 
-    public void marcarDevuelto() {
-        devuelto = true;
-        libro.prestarEjemplar();
-    }
 
-    public int calcularRetrasoEnDias(LocalDate hoy) {
-        if (hoy == null) {
-            return -1;
-        }
-
-        if (!hoy.isAfter(fechaFinEstimada)) {
-            return 0;
-        }
-        return (int) java.time.temporal.ChronoUnit.DAYS.between(fechaFinEstimada, hoy);
-    }
 }

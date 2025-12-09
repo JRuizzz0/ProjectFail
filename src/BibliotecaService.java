@@ -30,20 +30,29 @@ public class BibliotecaService {
 
         libro.prestarEjemplar();
 
+
+
         Prestamo prestamo = new Prestamo(usuario, libro, null, null);
         prestamos.add(prestamo);
 
     }
 
     public void devolverLibro(String idUsuario, String isbn) {
-        for (Prestamo prestamo : prestamos) {
-            if (prestamo.getUsuario().getId().equals(idUsuario)) {
-                if (prestamo.getLibro().getIsbn() == isbn) {
-                    prestamo.marcarDevuelto();
-                    break;
-                }
-            }
+
+
+        Usuario usuario = usuariosPorId.get(idUsuario);
+        Libro libro = librosPorIsbn.get(isbn);
+
+        if (usuario == null || libro == null) {
+            System.out.println("No existe usuario o libro");
         }
+
+        libro.devolver();
+
+
+
+        Prestamo prestamo = new Prestamo(usuario, libro, null, null);
+        prestamos.remove(prestamo);
     }
 
     public boolean puedePrestar(String idUsuario, String isbn) {

@@ -46,15 +46,16 @@ public class Libro {
 
     public void prestarEjemplar() {
         if (estaDisponible()) {
-            System.out.println("Ejemplar prestado existosamente, quedan" + ejemplaresDisponibles);
-            ejemplaresDisponibles--;
+
+            ejemplaresDisponibles= ejemplaresTotales -1;
+
+            System.out.println("Ejemplar prestado existosamente, quedan: " + ejemplaresDisponibles );
         }
     }
 
     public void devolver() {
-        if (ejemplaresDisponibles < ejemplaresTotales) {
-            ejemplaresDisponibles++;
-        }
+            System.out.println("Ejemplar devuelto: " + (ejemplaresTotales ));
+
     }
 
     @Override
